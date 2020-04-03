@@ -20,13 +20,13 @@
         <div class="row justify-content-center">
           <div class="main-box">
             <div class="main-box-row d-flex">
-              <div class="inner-box b-red box-1"></div>
-              <div class="inner-box b-yellow box-2"></div>
+              <div data-index="1" class="inner-box b-red"></div>
+              <div data-index="2" class="inner-box b-yellow"></div>
             </div>
             <div class="level-circle"></div>
             <div class="main-box-row d-flex">
-              <div class="inner-box b-blue box-3"></div>
-              <div class="inner-box b-green box-4"></div>
+              <div data-index="3" class="inner-box b-blue"></div>
+              <div data-index="4" class="inner-box b-green"></div>
             </div>
           </div>
         </div>
@@ -50,22 +50,20 @@
     <script src="assets/js/bootstrap.min.js"></script>
 
     <script>
-      const sound_1 = new Audio('assets/audios/sound-1.wav');
-      const sound_2 = new Audio('assets/audios/sound-2.wav');
-      const sound_3 = new Audio('assets/audios/sound-3.wav');
-      const sound_4 = new Audio('assets/audios/sound-4.wav')
-      $('.box-1').click(function(e){
-        sound_1.play();
+      
+
+      $('.inner-box').click(function(){
+        var box_index = $(this).attr('data-index');
+        const sound  = new Audio(`assets/audios/sound-${box_index}.wav`);
+        if ( sound.paused ) {
+          sound.play();
+        }
+        else {
+          sound.currentTime = 0;
+        }
       });
-      $('.box-2').click(function(e){
-        sound_2.play();
-      });
-      $('.box-3').click(function(e){
-        sound_3.play();
-      });
-      $('.box-4').click(function(e){
-        sound_4.play();
-      });
+
+     
     </script>
 
     <script src="assets/js/main.js"></script>

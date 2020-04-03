@@ -18,7 +18,7 @@ $(document).ready(function(){
         var this_box = $(this);
         setTimeout(function(){
             $(this_box).css({'opacity' : 0.3});
-        },300);
+        },200);
         $(this_box).css({'opacity' : 1});
      })
     
