@@ -7,14 +7,19 @@ $(document).ready(function(){
         $(this).css({'background-color': '', 'opacity' : 1, 'z-index' : 1});
     });
 
-
+    
     
     $('.inner-box').mousedown(function(){
-        $(this).css({'opacity' : 1})
+        $(this).css({'opacity' : 1});
+        
     })
     
     $('.inner-box').mouseup(function(){
-        $(this).css({'opacity' : 0.3})
-    })
+        var this_box = $(this);
+        setTimeout(function(){
+            $(this_box).css({'opacity' : 0.3});
+        },300);
+        $(this_box).css({'opacity' : 1});
+     })
     
 });
