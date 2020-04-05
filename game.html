@@ -13,8 +13,6 @@
 </head>
 
 <body>
-
-
     <div class="container">
       <div class="main-inner">
         <div class="row justify-content-center head">
@@ -27,7 +25,11 @@
               <div data-index="1" class="inner-box b-red"></div>
               <div data-index="2" class="inner-box b-yellow"></div>
             </div>
-            <div class="level-circle"></div>
+            <div class="level-circle">
+              <button id="restart-btn" style="display: none;">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sync-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sync-alt fa-w-16 fa-3x"><path fill="currentColor" d="M370.72 133.28C339.458 104.008 298.888 87.962 255.848 88c-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15H24.103c-7.498 0-13.194-6.807-11.807-14.176C33.933 94.924 134.813 8 256 8c66.448 0 126.791 26.136 171.315 68.685L463.03 40.97C478.149 25.851 504 36.559 504 57.941V192c0 13.255-10.745 24-24 24H345.941c-21.382 0-32.09-25.851-16.971-40.971l41.75-41.749zM32 296h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176C478.067 417.076 377.187 504 256 504c-66.448 0-126.791-26.136-171.315-68.685L48.97 471.03C33.851 486.149 8 475.441 8 454.059V320c0-13.255 10.745-24 24-24z" class=""></path></svg>
+              </button>
+            </div>
             <div class="main-box-row d-flex">
               <div data-index="3" class="inner-box b-blue"></div>
               <div data-index="4" class="inner-box b-green"></div>
@@ -39,8 +41,8 @@
           <div class="sub-steps-box">
             
           </div>
-          <div class="step">
-            <p class="step-text"></p>
+          <div class="level">
+            <p class="level-text"></p>
           </div>
         </div>
       </div>
@@ -49,120 +51,6 @@
 
   <script src="assets/js/jquery-3.4.1.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
-
-  <script>
-
-    $(document).ready(function () {
-
-
-      $('.inner-box').hover(function () {
-        var this_box_color = $(this).css('border-color');
-        $(this).css({ 'background-color': this_box_color, 'opacity': 0.3 });
-      },
-      function () {
-        $(this).css({ 'background-color': '', 'opacity': 1 });
-      });
-
-      $('.inner-box').mousedown(function () {
-        $(this).css({ 'background-color': $(this).css('border-color'), 'opacity': 1 });
-      })
-
-      $('.inner-box').mouseup(function (e) {
-        $(this).css({ 'background-color': '' });
-      })
-      
-
-      $('.inner-box').click(function (e) {
-        var this_box = e.target;
-        var box_index = $(this_box).attr('data-index');
-        
-        const sound = new Audio(`assets/audios/sound-${box_index}.wav`);
-        if (sound.paused) {
-          sound.play();
-        }
-        else {
-          sound.currentTime = 0;
-        }
-      }); 
-
-
-      function generateRandomNumbers(size) {
-        var rand_num_list = [];
-        while (rand_num_list.length != size) {
-          var randomNumber = Math.floor(Math.random() * 4) + 1;
-          rand_num_list.push(randomNumber);
-        }
-        return rand_num_list;
-      }
-
-      var sub_level = 1;
-      $('.level-circle').text(sub_level);
-      $('.step-text').text(`${sub_level}/5`);
-      var i = 0;
-
-
-      $('#startGame').click(function () {
-        
-        $('.game-block').show(1000);
-        $(this).css({'opacity' : 0})
-
-        var level = generateRandomNumbers(4+sub_level);
-        var step_list = $('.sub-steps-box').html('');
-        var step_arr = []
-        for (var j=0; j<level.length; j++){
-          var step_box = $('<div></div>')
-          step_arr.push(step_box)
-          step_list.append(step_box)
-        }
-        console.log(level);
-        var id = setInterval(function () {
-          var box = $(`.inner-box[data-index="${level[i]}"]`);
-          if (i != level.length) {
-            const sound = new Audio(`assets/audios/sound-${level[i]}.wav`);
-            sound.play();
-            setTimeout(function () {
-              $(box).css({ 'background-color': '' })
-            }, 300)
-            $(box).css({ 'background-color': box.css('border-color'), 'opacity': 1 })
-            i++;
-          } else {
-            clearInterval(id)
-            i = 0;
-            var clicked_box_index_list = []
-            var count = 0;
-            var score = 0;
-            console.log(score,count);
-            $('.inner-box').click(function(){
-              var index = $(this).attr('data-index');
-              clicked_box_index_list.push(index);
-              
-              if ( clicked_box_index_list[count] == level[count] ){
-                $(step_arr[count]).css({'background-color' : 'rgba(0,254,10,1)'})
-                score++;
-                if ( score == level.length) {
-                  sub_level++;
-                  console.log(sub_level)
-                  $('.level-circle').text(sub_level)
-                  $('.step-text').text(`${sub_level}/5`);
-                  setTimeout(function(){
-                    $('#startGame').trigger('click');
-                  },1000)
-                }
-              }
-              else {
-                $(step_arr[count]).css({'background-color' : 'rgba(254,0,20,1)'})
-              }
-              count++;
-            });
-          }
-        }, 500)
-
-      
-      })
-    });
-
-  </script>
-
   <script src="assets/js/main.js"></script>
 </body>
 

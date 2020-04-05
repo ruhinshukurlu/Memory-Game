@@ -1,3 +1,6 @@
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:700");
+
 body{
     background:url(../images/cosmos-2.jpg) no-repeat center center;
     background-size: 100% 100%;
@@ -26,6 +29,7 @@ h1{
     font-size: 50px;
     margin: 50px 0px;
     font-weight: 800;
+    font-family: 'Lobster', cursive;
 }
 
 #startGame{
@@ -48,6 +52,16 @@ h1{
     -moz-box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
     box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
 }
+
+#restart-btn{
+    outline: none;
+}
+
+#restart-btn svg{
+    width: 40px;
+    color: #fff;
+}
+
 .main-box{
     position: relative;
     display: flex;
@@ -66,6 +80,7 @@ h1{
     border-radius: 50%;
     z-index: 10;
     background-color: #48FCFB;
+    color: #fff;
     font-size: 25px;
     font-weight: 700;
 }
@@ -85,14 +100,14 @@ h1{
     padding: 25px;
 }
 
-.sub-steps-box, .step{
+.sub-steps-box, .level{
     display: flex;
     padding: 5px;
     border-radius: 20px;
     background-color: rgba(0, 255,255, 0.7);
 }
 
-.step p{
+.level p{
     margin: 0;
     color: #fff;
     font-size: 17px;
