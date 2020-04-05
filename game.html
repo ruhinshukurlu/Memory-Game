@@ -1,23 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Memory Game</title>
-  </head>
-  <body>
-    
-    <main id="main">
-      <div class="container">
-        <div class="row justify-content-center">
-          <h1>Memory Game / Level 1</h1>
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <title>Memory Game</title>
+</head>
+
+<body>
+
+
+    <div class="container">
+      <div class="main-inner">
+        <div class="row justify-content-center head">
+          <h1 id="gameName">Memory Game / Level 1</h1>
+          <button id="startGame" class="btn">Start Game</button>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center game-block" style="display: none;">
           <div class="main-box">
             <div class="main-box-row d-flex">
               <div data-index="1" class="inner-box b-red"></div>
@@ -30,42 +34,136 @@
             </div>
           </div>
         </div>
-
-        <div class="row justify-content-around">
-          <div class="sub-steps-list">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+  
+        <div class="row justify-content-between game-block step-block" style="display: none;">
+          <div class="sub-steps-box">
+            
           </div>
           <div class="step">
-            <p>1/5</p>
+            <p class="step-text"></p>
           </div>
         </div>
       </div>
-    </main>
-    
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    </div>
 
-    <script>
+
+  <script src="assets/js/jquery-3.4.1.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+
+  <script>
+
+    $(document).ready(function () {
+
+
+      $('.inner-box').hover(function () {
+        var this_box_color = $(this).css('border-color');
+        $(this).css({ 'background-color': this_box_color, 'opacity': 0.3 });
+      },
+      function () {
+        $(this).css({ 'background-color': '', 'opacity': 1 });
+      });
+
+      $('.inner-box').mousedown(function () {
+        $(this).css({ 'background-color': $(this).css('border-color'), 'opacity': 1 });
+      })
+
+      $('.inner-box').mouseup(function (e) {
+        $(this).css({ 'background-color': '' });
+      })
       
 
-      $('.inner-box').click(function(){
-        var box_index = $(this).attr('data-index');
-        const sound  = new Audio(`assets/audios/sound-${box_index}.wav`);
-        if ( sound.paused ) {
+      $('.inner-box').click(function (e) {
+        var this_box = e.target;
+        var box_index = $(this_box).attr('data-index');
+        
+        const sound = new Audio(`assets/audios/sound-${box_index}.wav`);
+        if (sound.paused) {
           sound.play();
         }
         else {
           sound.currentTime = 0;
         }
-      });
+      }); 
 
-     
-    </script>
 
-    <script src="assets/js/main.js"></script>
-  </body>
+      function generateRandomNumbers(size) {
+        var rand_num_list = [];
+        while (rand_num_list.length != size) {
+          var randomNumber = Math.floor(Math.random() * 4) + 1;
+          rand_num_list.push(randomNumber);
+        }
+        return rand_num_list;
+      }
+
+      var sub_level = 1;
+      $('.level-circle').text(sub_level);
+      $('.step-text').text(`${sub_level}/5`);
+      var i = 0;
+
+
+      $('#startGame').click(function () {
+        
+        $('.game-block').show(1000);
+        $(this).css({'opacity' : 0})
+
+        var level = generateRandomNumbers(4+sub_level);
+        var step_list = $('.sub-steps-box').html('');
+        var step_arr = []
+        for (var j=0; j<level.length; j++){
+          var step_box = $('<div></div>')
+          step_arr.push(step_box)
+          step_list.append(step_box)
+        }
+        console.log(level);
+        var id = setInterval(function () {
+          var box = $(`.inner-box[data-index="${level[i]}"]`);
+          if (i != level.length) {
+            const sound = new Audio(`assets/audios/sound-${level[i]}.wav`);
+            sound.play();
+            setTimeout(function () {
+              $(box).css({ 'background-color': '' })
+            }, 300)
+            $(box).css({ 'background-color': box.css('border-color'), 'opacity': 1 })
+            i++;
+          } else {
+            clearInterval(id)
+            i = 0;
+            var clicked_box_index_list = []
+            var count = 0;
+            var score = 0;
+            console.log(score,count);
+            $('.inner-box').click(function(){
+              var index = $(this).attr('data-index');
+              clicked_box_index_list.push(index);
+              
+              if ( clicked_box_index_list[count] == level[count] ){
+                $(step_arr[count]).css({'background-color' : 'rgba(0,254,10,1)'})
+                score++;
+                if ( score == level.length) {
+                  sub_level++;
+                  console.log(sub_level)
+                  $('.level-circle').text(sub_level)
+                  $('.step-text').text(`${sub_level}/5`);
+                  setTimeout(function(){
+                    $('#startGame').trigger('click');
+                  },1000)
+                }
+              }
+              else {
+                $(step_arr[count]).css({'background-color' : 'rgba(254,0,20,1)'})
+              }
+              count++;
+            });
+          }
+        }, 500)
+
+      
+      })
+    });
+
+  </script>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
 </html>
