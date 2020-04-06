@@ -105,10 +105,22 @@ $(document).ready(function () {
               level_score ++;
               if ( level_score == level.length ) {
                 level_count++;
-                $('.level-circle').text(level_count)
-                $('.level-text').text(`${level_count}/5`);
 
-                $('#startGame').trigger('click');
+                if ( level_count == 6 ) {
+                  $('.game-block').hide(1000);
+                } else {
+                  $('.level-circle').text(level_count)
+                  $('.level-text').text(`${level_count}/5`);
+
+                  level = generateRandomNumbers( 3 + level_count );
+                  step_box_arr = generateStepBoxs( level.length );
+                  console.log(level);
+                  console.log(step_box_arr);
+
+                  setTimeout(function () {
+                    startGameInterval = setInterval( startGame, 500 );
+                  },1000);
+                }
               }
             } else{
               $(step_box_arr[count]).css({'background-color' : 'rgba(254,0,20,1)'})
@@ -116,8 +128,20 @@ $(document).ready(function () {
               $('.level-circle').html(restart_btn)
               restart_btn.show(500)
               restart_btn.click(function(){
-                $('.level-circle').text(level_count)
-                $('#startGame').trigger('click');
+                level_count = 1;
+                $('.level-circle').text(level_count);
+                $('.level-text').text(`${level_count}/5`);
+
+                level = generateRandomNumbers( 3 + level_count );
+                step_box_arr = generateStepBoxs( level.length );
+
+                console.log('restart level => ',level);
+                console.log(step_box_arr);
+
+                setTimeout(function () {
+                  startGameInterval = setInterval( startGame, 500 );
+                },1000);
+
               });
             }
         
