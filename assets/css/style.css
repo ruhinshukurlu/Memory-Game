@@ -12,6 +12,8 @@ body{
 
 .main-inner{
     position: relative;
+    /* display: flex;
+    flex-direction: column; */
     width: 70%;
     height: 80vh;
     margin: auto;
@@ -26,7 +28,7 @@ body{
 h1{
     text-align: center;
     color: #fff;
-    font-size: 50px;
+    font-size: 60px;
     margin: 50px 0px;
     font-weight: 800;
     font-family: 'Lobster', cursive;
@@ -97,22 +99,48 @@ h1{
 }
 
 .step-block{
+    position: absolute;
     padding: 25px;
+    align-items: flex-end;
+    bottom: 0;
+    width: 100%;
 }
 
-.sub-steps-box, .level{
+.sub-steps-box, .level-block{
     display: flex;
+    align-items: center;
     padding: 5px;
     border-radius: 20px;
-    background-color: rgba(0, 255,255, 0.7);
 }
 
-.level p{
-    margin: 0;
-    color: #fff;
+.sub-steps-box{
+    height: 30px;
+    background-color: rgba(0, 255,255, 0.7);
+}
+.level-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: transparent;
     font-size: 17px;
     font-weight: 700;
-    margin: 0 10px;
+}
+
+
+
+.level-text{
+    margin: 0;
+    color: #fff;
+}
+
+.line{
+    width: 30px;
+    border: 1px dashed #fff;
+    transition: .5s;
 }
 
 .sub-steps-box div{

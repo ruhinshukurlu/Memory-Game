@@ -53,9 +53,15 @@ $(document).ready(function () {
 
     var restart_btn = $('#restart-btn');
     
+    var level_block = $('.level-block');
+    var level_item_list = $(level_block).children('.level-item')
+
+    var line_list = $('.level-block').children('.line')
     var level_count = 1;
     $('.level-circle').text(level_count);
-    $('.level-text').text(`${level_count}/5`);
+    $(level_item_list[level_count-1]).css({'background-color' : 'rgba(255, 251, 0,0.5)' })
+    
+    
     var i = 0;
     var clicked_box_index_list;
     var count;
@@ -65,7 +71,7 @@ $(document).ready(function () {
     $('#startGame').click(function () {
       
       $('.game-block').show(1000);
-      $(this).css({'opacity' : 0})
+      $(this).hide(200)
 
       var level = generateRandomNumbers( 3 + level_count );
       var step_box_arr = generateStepBoxs( level.length );
@@ -104,13 +110,22 @@ $(document).ready(function () {
               $(step_box_arr[count]).css({'background-color' : 'rgba(0,254,10,1)'})
               level_score ++;
               if ( level_score == level.length ) {
+                $(level_item_list[level_count-1]).html('')
+                $(level_item_list[level_count-1]).css({
+                  'background-color' : 'rgba(255, 251, 0, 1)',
+                  'box-shadow' : '0px 0px 49px 14px rgba(255,251,0,1)'
+                })
+                $(line_list[level_count-1]).css({
+                  'border-style' : 'solid',
+                  'border-color' : 'rgba(255, 251, 0, 1)'
+                });
                 level_count++;
-
+                $(level_item_list[level_count-1]).css({'background-color' : 'rgba(255, 251, 0,0.5)' })
                 if ( level_count == 6 ) {
                   $('.game-block').hide(1000);
                 } else {
                   $('.level-circle').text(level_count)
-                  $('.level-text').text(`${level_count}/5`);
+                  // $('.level-text').text(`${level_count}/5`);
 
                   level = generateRandomNumbers( 3 + level_count );
                   step_box_arr = generateStepBoxs( level.length );
@@ -130,7 +145,7 @@ $(document).ready(function () {
               restart_btn.click(function(){
                 level_count = 1;
                 $('.level-circle').text(level_count);
-                $('.level-text').text(`${level_count}/5`);
+                // $('.level-text').text(`${level_count}/5`);
 
                 level = generateRandomNumbers( 3 + level_count );
                 step_box_arr = generateStepBoxs( level.length );
