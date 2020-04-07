@@ -71,7 +71,8 @@ $(document).ready(function () {
     $('#startGame').click(function () {
       
       $('.game-block').show(1000);
-      $(this).hide(200)
+      $(this).hide(200);
+      $('#review').hide(200)
 
       var level = generateRandomNumbers( 3 + level_count );
       var step_box_arr = generateStepBoxs( level.length );
@@ -110,7 +111,7 @@ $(document).ready(function () {
               $(step_box_arr[count]).css({'background-color' : 'rgba(0,254,10,1)'})
               level_score ++;
               if ( level_score == level.length ) {
-                $(level_item_list[level_count-1]).html('')
+                $(level_item_list[level_count-1]).find('.level-text').hide();
                 $(level_item_list[level_count-1]).css({
                   'background-color' : 'rgba(255, 251, 0, 1)',
                   'box-shadow' : '0px 0px 49px 14px rgba(255,251,0,1)'
@@ -140,12 +141,23 @@ $(document).ready(function () {
             } else{
               $(step_box_arr[count]).css({'background-color' : 'rgba(254,0,20,1)'})
               
+              // startGameInterval = setInterval( startGame, 0 );
+
               $('.level-circle').html(restart_btn)
               restart_btn.show(500)
               restart_btn.click(function(){
                 level_count = 1;
                 $('.level-circle').text(level_count);
-                // $('.level-text').text(`${level_count}/5`);
+                $('.level-text').show();
+                $('.level-item').css({
+                  'background-color' : 'transparent',
+                  'box-shadow' : 'none'
+                });
+                $(line_list[level_count-1]).css({
+                  'border-style' : 'dashed',
+                  'border-color' : '#fff'
+                });
+                $(level_item_list[level_count-1]).css({'background-color' : 'rgba(255, 251, 0,0.5)' })
 
                 level = generateRandomNumbers( 3 + level_count );
                 step_box_arr = generateStepBoxs( level.length );
