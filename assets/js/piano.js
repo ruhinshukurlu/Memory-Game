@@ -1,104 +1,119 @@
 $(document).ready(function(){
 
-    $('.key').mousedown(function(){
-        var this_div_class  = $(this)[0].classList[0];
-        if (this_div_class == "white-key"){
-            $(this).css({
-                'box-shadow' : 'inset 0px 0px 41px -9px rgba(0,0,0,0.75)'
-             })
-        }else if (this_div_class == "black-key") {
-            $(this).css({
-                'background': 'rgb(0,0,0)',
-                'background' : 'radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(208,208,208,1) 0%, rgba(0,0,0,0.9923319669664741) 0%, rgba(87,86,86,1) 100%)'
-            });
-        }
-    });
 
-    $('.key').mouseup(function(){
-        var this_div_class  = $(this)[0].classList[0];
-        var this_div = $(this);
-        if (this_div_class == "white-key"){
-            setTimeout(function(){
-                this_div.css({
-                    'box-shadow' : 'none'
-                })
-            },100);
-            $(this).css({ 'box-shadow' : 'inset 0px 0px 41px -9px rgba(0,0,0,0.75)' })
-        }else if (this_div_class == "black-key") {
-            $(this).css({
-                'background': 'rgb(0,0,0)',
-                'background' : 'radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9923319669664741) 0%, rgba(115,112,112,1) 0%, rgba(0,0,0,1) 100%)'
-            });
-        }
-    });
-
-    
 
     var piano_box = $('.piano-block');
     var note_list = piano_box.children();
-    var index = 1;
+    
 
     function addIndexToNotes() {
-        for ( note of note_list ) {
+        var index = 0;
+        for (const note of note_list) {
             $(note).attr('data-index',index);
-            index+=0.5;
-            if (index == 7.5) {
-                index++;
-            }
-        }
+            index++;
+        }    
     }
     addIndexToNotes();
 
-
-    function getSound(index) {
-        return new Audio(`https://awiclass.monoame.com/pianosound/set/${index}.wav`);
+    function getSound(name) {
+        console.log(`assets/audios/${name}.wav`)
+        return new Audio(`assets/audios/${name}.wav`);
     }
 
     $('.key').click(function(){
-        var clicked_note_index = $(this).attr('data-index');
+        var clicked_note_index = $(this).attr('data-key');
         var sound = getSound(clicked_note_index);
-        if (sound.paused) {
-            sound.play();
-        }
-        else {
-            sound.currentTime = 0;
-        }
-        
+        sound.play()
     });
     
     function generateRandomNumbers(size) {
         var rand_num_list = [];
         while (rand_num_list.length != size) {
-            var randomNumber = Math.floor(Math.random() * 10) + 1;
+            var randomNumber = Math.floor(Math.random() * 17) ;
             rand_num_list.push(randomNumber);
         }
         return rand_num_list;
     }
-    var rand_nums = generateRandomNumbers(5);
-    console.log(rand_nums);
 
-    function addDecimalRandomNumbers(size) {
-        var decimal_num_amount = Math.floor(Math.random() * size ) + 1;
-        console.log(decimal_num_amount)
-        while (decimal_num_amount != 0) {
-            var rand_index = Math.floor(Math.random() * size );
-            console.log('index',rand_index)
-            rand_nums[ rand_index ] += 0.5;
-
-            if (rand_nums [ rand_index ] == 7.5 ){
-                rand_nums[ rand_index ] += 0.5;
-            }
-            decimal_num_amount--;
+    function generateStepBoxs (size) {
+        var step_box = $('.piano-step-block');
+        step_box.html('')
+        var step_list = [];
+        for (let j = 0; j < size; j++) {
+            var step = $('<i class="fas fa-music"></i>')
+            step_list.push(step)
+            step_box.append(step)
         }
-        return rand_nums;
+        return step_list;
     }
-
-    var level = addDecimalRandomNumbers( rand_nums.length );
-    console.log(level)
     
-    function startGame () {
+    
+    var iterator = 0;
+    var click_count = 0;
+
+    $('h1').click(function(){
+        var level = generateRandomNumbers( 5 )
+        console.log('level',level)
+        var step_list = generateStepBoxs (level.length)
+        function levelStart () {
+            var level_rand_index = level[iterator]
+            if ( iterator != level.length ) {
+                var random_note = $(`.key[data-index="${level_rand_index}"]`);
+                console.log(random_note)
+                var random_note_name = random_note.attr('data-key');
+                const random_note_sound = getSound( random_note_name );
+                console.log(random_note_sound)
+                random_note_sound.play();
+                setTimeout (function () {
+                    random_note.removeClass('active')
+                },400)
+                random_note.addClass('active')
+                iterator++;
+            } 
+            else {
+                clearInterval(id);
+                iterator = 0;
+                click_count = 0;
+            }
+        }
+        var id;
+        setTimeout(function(){
+            id = setInterval( levelStart, 500 );
+        },1000)
         
-    }
+
+        $('.key').click(function(){
+            var clicked_note_index = $(this).attr('data-index');
+            var clicked_note = $(this)
+            if ( level[0] == clicked_note_index ) {
+                step_list[click_count].css({'color' : '#52FF00'})
+                console.log('right')
+                setTimeout (function () {
+                    $(clicked_note).removeClass('right')
+                },300)
+                $(clicked_note).addClass('right')
+                level.shift();
+                if (level.length == 0) {
+                    console.log('winn');
+                }
+            } else {
+                step_list[click_count].css({'color' : '#FF0000'})
+                setTimeout (function () {
+                    clicked_note.removeClass('wrong')
+                },300)
+                clicked_note.addClass('wrong')
+                console.log('wrong')
+            }
+            click_count++;
+        })
+
+
+
+    });
+    
+    
+
+    
 
     // startGame()
 
