@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/piano.css">
@@ -19,11 +20,25 @@
       <div class="main-inner">
         <div class="row justify-content-center head">
           <h1 id="gameName">Memory Game</h1>
-          <!-- <button id="startGame" class="btn">Start Game</button>
-          <button id="review" class="btn">Review</button> -->
+          <div class="piano-score-box" style="display: none;"> 
+            <p class="piano-score-text"></p>
+          </div>
+          <button id="startGame" class="btn">Start Game</button>
+          <button id="review" class="btn">Review</button>
         </div>
 
-        <div class="row game-block justify-content-center">
+        <div class="row game-mode" style="display: none;">
+          <div class="col-lg-6">
+            <h2 class="easy-mode">Easy</h2>
+            <img src="assets/images/easy-mode.png" class="easy-mode" alt="">
+          </div>
+          <div class="col-lg-6">
+            <h2 class="hard-mode">Hard</h2>
+            <img src="assets/images/hard-mode.png" class="hard-mode" alt="">
+          </div>
+        </div>
+
+        <div class="row justify-content-center" style="display: none;">
           <div class="piano-block">
             <div class="white-key key" data-key="do-s"></div>
             <div class="black-key key" data-key="do"></div>
@@ -45,7 +60,8 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row justify-content-center" style="display: none;">
+          <button id="piano-restart" style="display: none;">Restart</button>
           <div class="piano-step-block">
 
           </div>
@@ -109,8 +125,8 @@
 
   <script src="assets/js/jquery-3.4.1.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
-  <script src="assets/js/piano.js"></script>
-  <!-- <script src="assets/js/main.js"></script> -->
+  <!-- <script src="assets/js/piano.js"></script> -->
+  <script src="assets/js/main.js"></script>
 </body>
 
 </html>

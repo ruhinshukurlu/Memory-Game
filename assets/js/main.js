@@ -51,6 +51,12 @@ $(document).ready(function () {
       return sub_step_arr;
     }
 
+    $('#startGame').click(function(){
+      $(this).hide(400);
+      $('#review').hide(400)
+      $('.game-mode').show  (500)
+    });
+
     var restart_btn = $('#restart-btn');
     
     var level_block = $('.level-block');
@@ -68,11 +74,11 @@ $(document).ready(function () {
     var level_score = 0;
     
 
-    $('#startGame').click(function () {
+    $('.easy-mode').click(function () {
       
+      $('.game-mode').hide(700)
       $('.game-block').show(1000);
-      $(this).hide(200);
-      $('#review').hide(200)
+      
 
       var level = generateRandomNumbers( 3 + level_count );
       var step_box_arr = generateStepBoxs( level.length );
@@ -146,7 +152,7 @@ $(document).ready(function () {
               $('.level-circle').html(restart_btn)
               restart_btn.show(500)
               restart_btn.click(function(){
-                level_count = 1;
+                level_count = 1;  
                 $('.level-circle').text(level_count);
                 $('.level-text').show();
                 $('.level-item').css({

@@ -19,8 +19,28 @@ body{
     background-color: rgba(128,128,128,0.5);
 }
 
+.col-lg-6{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.col-lg-6 img{
+    width: 315px;
+    height: 200px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.col-lg-6 h2{
+    color: #FBFE00;
+    font-size: 32px;
+    margin: 20px 0px;
+    font-weight: 800;
+    font-family: 'Lobster', cursive;
+}
 .head{
     flex-direction: column;
+    position: relative;
 }
 
 h1{

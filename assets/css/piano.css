@@ -12,7 +12,8 @@
 }
 
 .white-key:hover {
-    background-image: linear-gradient(white 10%, #e4e4e4 92%, #d0cfcf 91%, white 97%) !important;
+    box-shadow: inset 0px 0px 41px -8px rgba(182,182,186,1);
+    /* background-image: linear-gradient(white 10%, #e4e4e4 92%, #d0cfcf 91%, white 97%) !important; */
 }
 .white-key:active {
     background-image: linear-gradient(white 10%, #b1b1b1 95%, #656565 92%, #797979 90%) !important;
@@ -33,7 +34,8 @@
     color: #fff;
 }
 .black-key:hover {
-    background-image: linear-gradient(#313131 10%, #3a3a3a 85%, black 90%) !important;
+    box-shadow: inset 0px 0px 41px -18px rgba(219,219,219,1);
+    /* background-image: linear-gradient(#313131 10%, #3a3a3a 85%, black 90%) !important; */
 }
 .black-key:active {
     background-image: linear-gradient(#4a4a4a 30%, #000 80%, #404040 92%, black 93%) !important;
@@ -60,7 +62,60 @@
     padding: 20px;
     margin: 20px;
 }
-.fa-music{
-    width: 35px;
+.material-icons, .fa-music{
+    font-size: 30px;
     color: #fff;
+}
+
+.fa-music{
+    position: absolute;
+    bottom: 105px;
+}
+
+.music-note{
+    width: 30px;
+    padding: 10px;
+    margin: 5px;
+    
+}
+
+.piano-score-box{
+    display: flex;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    right: 30px;
+    top: 50px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.piano-score-text{
+    margin: 0;
+    font-size: 35px;
+    font-weight: 700;
+    color: #fff;
+}
+
+#piano-restart{
+    position: relative;
+    margin: 40px auto;
+    width: 250px;
+    height: 60px;
+    border-radius: 20px;
+    outline: none;
+    background-color: rgba(255, 251, 0,0.5);
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    transition: .4s;
+}
+
+#piano-restart:hover{
+    background-color: rgba(255, 251, 0,1);
+    -webkit-box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
+    -moz-box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
+    box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
 }
