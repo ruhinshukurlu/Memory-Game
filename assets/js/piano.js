@@ -66,7 +66,7 @@ $(document).ready(function(){
     var levels_list = generateAllLevels( 10 )
     var level = levels_list[ level_count ]
 
-    $('.hard-mode').click(function(){
+    $('#hard-mode').click(function(){
         $('.game-mode-block').hide(700)
         $('.piano-game-block').show(1000);
         
@@ -100,7 +100,7 @@ $(document).ready(function(){
         }  
         var  id;
         setTimeout(function(){
-          id = setInterval( levelStart, 700 );
+          id = setInterval( levelStart, 600 );
         },1500)
 
         piano_restart_btn.click(function(){
@@ -117,7 +117,7 @@ $(document).ready(function(){
             $('.piano-step-block').show()
 
             setTimeout(function(){
-                id = setInterval( levelStart, 500 );
+                id = setInterval( levelStart, 600 );
             },1500)
         });
         
@@ -139,10 +139,10 @@ $(document).ready(function(){
                     level_count++;
                     $('.piano-score-text').text( level_count+1 )
                     level = levels_list[ level_count ]
-                    // level = generateRandomNumbers( 4 + level_count )
+                    
                     step_list = generateStepBoxs (level.length)
                     setTimeout(function(){
-                        id = setInterval( levelStart, 700 );
+                        id = setInterval( levelStart, 600 );
                     },1500)
                 }
             } 

@@ -77,6 +77,9 @@
     justify-content: center;
     align-items: center;
 }
+.came-back-btn:hover{
+    text-decoration: none;
+}
 
 .back-icon{
     font-size: 25px;
@@ -120,6 +123,29 @@ h1{
     box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
 }
 
+#cube-restart{
+    outline: none;
+    width: 100px;
+    height: 60px;
+    border-radius: 10px;
+    position: relative;
+    margin: auto;
+    background-color: rgba(255, 251, 0,0.5);
+}
+
+#cube-restart:hover{
+    background-color: rgba(255, 251, 0,1);
+    -webkit-box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
+    -moz-box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
+    box-shadow: 0px 0px 54px 0px rgba(255,250,0,1);
+}
+
+
+#cube-restart svg{
+    width: 40px;
+    color: #fff;
+}
+
 .review-box{
     width: 500px;
     margin: 20px auto;
@@ -139,14 +165,7 @@ h1{
     margin-left: 5px;
 }
 
-#restart-btn{
-    outline: none;
-}
 
-#restart-btn svg{
-    width: 40px;
-    color: rgb(255, 0, 0);
-}
 
 #restart-btn svg:hover{
     color: #FBFE00;
