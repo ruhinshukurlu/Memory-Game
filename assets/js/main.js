@@ -16,6 +16,10 @@ $(document).ready(function () {
     $('.inner-box').mouseup(function (e) {
       $(this).css({ 'background-color': '' });
     })
+
+    $('#review-btn').click(function(){
+      $('.review-box').slideToggle(500);
+    })
     
 
     $('.inner-box').click(function (e) {
@@ -52,17 +56,28 @@ $(document).ready(function () {
     }
 
     $('#startGame').click(function(){
-      $(this).hide(400);
-      $('#review').hide(400)
-      $('.game-mode').show  (500)
+      
+      $('.start-block').hide(500)
+      $('.came-back-btn').show(500)
+      $('.game-mode-block').show(500);
+      
+    });
+
+    $('.came-back-btn').click(function(){
+      $(this).hide(500);
+      $('.review-box').slideUp(500);
+      $('.game-mode-block').hide(500);
+      $('.cube-game-block').hide(500);
+      $('.piano-game-block').hide(500);
+      $('.congrat-block').hide(500)
+      $('.start-block').show(500)
     });
 
     var restart_btn = $('#restart-btn');
-    
     var level_block = $('.level-block');
     var level_item_list = $(level_block).children('.level-item')
-
     var line_list = $('.level-block').children('.line')
+
     var level_count = 1;
     $('.level-circle').text(level_count);
     $(level_item_list[level_count-1]).css({'background-color' : 'rgba(255, 251, 0,0.5)' })
@@ -76,24 +91,24 @@ $(document).ready(function () {
 
     $('.easy-mode').click(function () {
       
-      $('.game-mode').hide(700)
-      $('.game-block').show(1000);
-      
-
-      var level = generateRandomNumbers( 3 + level_count );
+      $('.game-mode-block').hide(700)
+      $('.cube-game-block').show(1000);
+    
+      var level = generateRandomNumbers( 4 + level_count );
       var step_box_arr = generateStepBoxs( level.length );
-      console.log(level);
-      console.log(step_box_arr);
 
       function startGame () {
         var random_inner_box = $(`.inner-box[data-index="${level[i]}"]`);
+
         if (i != level.length) {
           const sound = new Audio(`assets/audios/sound-${level[i]}.wav`);
           sound.play();
+
           setTimeout(function () {
             $(random_inner_box).css({ 'background-color': '' })
           }, 300)
           $(random_inner_box).css({ 'background-color': random_inner_box.css('border-color'), 'opacity': 1 })
+
           i++;
         } else {
           clearInterval(startGameInterval);
@@ -103,20 +118,22 @@ $(document).ready(function () {
           count = 0;
         }
       }
+
       var startGameInterval;
       setTimeout(function () {
         startGameInterval = setInterval( startGame, 500 );
-      },1000);
+      },1500);
         
       $('.inner-box').click(function () {
         var index = $(this).attr('data-index');
         clicked_box_index_list.push(index);
-        console.log(count);
         
         if ( clicked_box_index_list[count] == level[count] ){
               $(step_box_arr[count]).css({'background-color' : 'rgba(0,254,10,1)'})
               level_score ++;
+
               if ( level_score == level.length ) {
+
                 $(level_item_list[level_count-1]).find('.level-text').hide();
                 $(level_item_list[level_count-1]).css({
                   'background-color' : 'rgba(255, 251, 0, 1)',
@@ -129,16 +146,17 @@ $(document).ready(function () {
                 level_count++;
                 $(level_item_list[level_count-1]).css({'background-color' : 'rgba(255, 251, 0,0.5)' })
                 if ( level_count == 6 ) {
-                  $('.game-block').hide(1000);
+
+                  $('.cube-game-block').hide(1000);
+                  $('.congrat-block').show(1000)
+
                 } else {
+
                   $('.level-circle').text(level_count)
-                  // $('.level-text').text(`${level_count}/5`);
-
-                  level = generateRandomNumbers( 3 + level_count );
+                  
+                  level = generateRandomNumbers( 4 + level_count );
                   step_box_arr = generateStepBoxs( level.length );
-                  console.log(level);
-                  console.log(step_box_arr);
-
+                  
                   setTimeout(function () {
                     startGameInterval = setInterval( startGame, 500 );
                   },1000);
@@ -147,8 +165,6 @@ $(document).ready(function () {
             } else{
               $(step_box_arr[count]).css({'background-color' : 'rgba(254,0,20,1)'})
               
-              // startGameInterval = setInterval( startGame, 0 );
-
               $('.level-circle').html(restart_btn)
               restart_btn.show(500)
               restart_btn.click(function(){
@@ -165,11 +181,8 @@ $(document).ready(function () {
                 });
                 $(level_item_list[level_count-1]).css({'background-color' : 'rgba(255, 251, 0,0.5)' })
 
-                level = generateRandomNumbers( 3 + level_count );
+                level = generateRandomNumbers( 4 + level_count );
                 step_box_arr = generateStepBoxs( level.length );
-
-                console.log('restart level => ',level);
-                console.log(step_box_arr);
 
                 setTimeout(function () {
                   startGameInterval = setInterval( startGame, 500 );

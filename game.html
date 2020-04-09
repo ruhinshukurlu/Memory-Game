@@ -16,18 +16,44 @@
 </head>
 
 <body>
+
+  <div class="full">
     <div class="container">
       <div class="main-inner">
         <div class="row justify-content-center head">
+          <div class="menu-block" >
+            <button class="came-back-btn" style="display: none;">
+              <i class="fas fa-reply-all back-icon"></i>
+            </button>
+          </div>
+
           <h1 id="gameName">Memory Game</h1>
-          <div class="piano-score-box" style="display: none;"> 
+
+          <div class="piano-score-box piano-game-block" style="display: none;"> 
             <p class="piano-score-text"></p>
           </div>
-          <button id="startGame" class="btn">Start Game</button>
-          <button id="review" class="btn">Review</button>
+
+          <div class="start-block">
+            <button id="startGame" class="btn">Start Game</button>
+            <button id="review-btn" class="btn">Review</button>
+            <div class="review-box" style="display: none;">
+              <div class="triangle"></div>
+              <p class="review-text">
+                Welcome to Memory Game !
+                We use our memory every day, to keep our memory power we must practise it as we can do. This game is designed for everyone who wants to be in form.
+                You'll use your mouse<i class="fas fa-mouse"></i>.  Just follow acts , then click same acts and go to the next level. Also you can choose difficulty of level before play.
+                And with arrow button you can go back page.
+                Enjoy playing :)
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="row game-mode" style="display: none;">
+        <div class="congrat-block" style="display: none;">
+          <img src="assets/images/congrat.jpg" class="congrat-img" alt="">
+        </div>
+
+        <div class="row game-mode-block" style="display: none;">
           <div class="col-lg-6">
             <h2 class="easy-mode">Easy</h2>
             <img src="assets/images/easy-mode.png" class="easy-mode" alt="">
@@ -38,7 +64,7 @@
           </div>
         </div>
 
-        <div class="row justify-content-center" style="display: none;">
+        <div class="row justify-content-center piano-game-block" style="display: none;">
           <div class="piano-block">
             <div class="white-key key" data-key="do-s"></div>
             <div class="black-key key" data-key="do"></div>
@@ -60,14 +86,13 @@
           </div>
         </div>
 
-        <div class="row justify-content-center" style="display: none;">
+        <div class="row justify-content-center piano-game-block" style="display: none;">
           <button id="piano-restart" style="display: none;">Restart</button>
-          <div class="piano-step-block">
 
-          </div>
+          <div class="piano-step-block"></div>
         </div>
 
-        <div class="row justify-content-center game-block" style="display: none;">
+        <div class="row justify-content-center cube-game-block" style="display: none;">
           <div class="main-box">
             <div class="main-box-row d-flex">
               <div data-index="1" class="inner-box b-red"></div>
@@ -85,10 +110,9 @@
           </div>
         </div>
   
-        <div class="row justify-content-between game-block step-block" style="display: none;">
-          <div class="sub-steps-box">
-            
-          </div>
+        <div class="row justify-content-between cube-game-block step-block" style="display: none;">
+          <div class="sub-steps-box"></div>
+
           <div class="level-block">
             <div class="level-item">
               <p class="level-text">1</p>
@@ -121,11 +145,11 @@
         </div>
       </div>
     </div>
-
+  </div>
 
   <script src="assets/js/jquery-3.4.1.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
-  <!-- <script src="assets/js/piano.js"></script> -->
+  <script src="assets/js/piano.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 

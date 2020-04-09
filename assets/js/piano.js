@@ -66,27 +66,28 @@ $(document).ready(function(){
     var levels_list = generateAllLevels( 10 )
     var level = levels_list[ level_count ]
 
-    $('h1').click(function(){
+    $('.hard-mode').click(function(){
+        $('.game-mode-block').hide(700)
+        $('.piano-game-block').show(1000);
+        
+        // console.log(levels_list);
+        // console.log('level',level)
         
         $('.piano-score-text').text( level_count+1 )
-
-        // var level = generateRandomNumbers( 4 )
-        console.log(levels_list);
-        console.log('level',level)
-
         var step_list = generateStepBoxs (level.length)
 
         function levelStart () {
             var level_rand_index = level[iterator]
             if ( iterator != level.length ) {
                 var random_note = $(`.key[data-index="${level_rand_index}"]`);
-                console.log(random_note)
+                
                 var random_note_name = random_note.attr('data-key');
                 const random_note_sound = getSound( random_note_name );
                 random_note_sound.play();
+                
                 setTimeout (function () {
                     random_note.removeClass('active')
-                },400)
+                },500)
                 random_note.addClass('active')
                 iterator++;
             } 
@@ -99,19 +100,17 @@ $(document).ready(function(){
         }  
         var  id;
         setTimeout(function(){
-          id = setInterval( levelStart, 500 );
-        },1000)
+          id = setInterval( levelStart, 700 );
+        },1500)
 
         piano_restart_btn.click(function(){
             level_count = 0;
             $(this).hide();
             
             var levels_list = generateAllLevels( 10 )
-            console.log(levels_list)
+            
             level = levels_list[ level_count ]
 
-            // level = generateRandomNumbers(4)
-            console.log(level_count,level)
             $('.piano-score-text').text( level_count+1 )
 
             step_list = generateStepBoxs (level.length)
@@ -119,7 +118,7 @@ $(document).ready(function(){
 
             setTimeout(function(){
                 id = setInterval( levelStart, 500 );
-            },1000)
+            },1500)
         });
         
 
@@ -143,8 +142,8 @@ $(document).ready(function(){
                     // level = generateRandomNumbers( 4 + level_count )
                     step_list = generateStepBoxs (level.length)
                     setTimeout(function(){
-                        id = setInterval( levelStart, 500 );
-                    },1000)
+                        id = setInterval( levelStart, 700 );
+                    },1500)
                 }
             } 
             else {
